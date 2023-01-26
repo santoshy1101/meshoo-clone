@@ -5,7 +5,7 @@ import axios from "axios";
 import React, { useState, useEffect, memo } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom/dist";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom/dist";
 import ProductsList from "../Pages/ProductsList";
 import { addSingleCart } from "../Redux/AddSingleData/action";
 import { addtoCartAction } from "../Redux/AddtoCart/action";
@@ -14,7 +14,7 @@ import "./SingleProductPage.css";
 // import FontAwesomeIcon from "@fortawesome/fontawesome-svg-core";
 
 function SingleProductPage({ productKey }) {
-  console.log("productKey:1211323232323 ", productKey);
+
   let newProductkey = productKey.replaceAll(" ", "").toLowerCase();
   // console.log("newProductkey: ", newProductkey);
   const { id } = useParams();
@@ -33,83 +33,23 @@ function SingleProductPage({ productKey }) {
   const toast = useToast();
 
   // let arr = [];
+  const loaction = useParams()
 
-  const handleAddCart = () => {
-    // alert("Product Added");
-    let newProduct = product;
-    if (size) {
-      let updateProduct = { ...newProduct, size };
-      axios
-        .post(
-          "https://meshoo-mock-server-app.onrender.com/addtocartdata",
-          updateProduct
-        )
-        .then((res) => {
-          // console.log("res455666768888", res);
-          dispatch(addtoCartAction(res.data));
-        });
-      setSize("");
-
-      // arr.push(newProduct);
-
-      setAddedCart(true);
-
-      // alert("product added in cart");
-      toast({
-        title: "Product Added In Cart",
-        description: "This Product Already Add In Cart",
-        status: "success",
-        duration: 1500,
-        isClosable: true,
-        position: "top",
-      });
-
-      return;
-    } else {
-      // alert("please select the size");
-      toast({
-        title: "Please Select The Size",
-        description: "This Product Already Add In Cart",
-        status: "success",
-        duration: 1500,
-        isClosable: true,
-        position: "top",
-      });
-      
-      return;
+  const handleAddCart =()=>{
+    if(size){
+      console.log("size",size)
+      console.log(loaction);
+      alert("cliked added")
+      setSize("")
     }
-    if (addedCart) {
-      toast({
-        title: "Account created.",
-        description: "This Product Already Add In Cart",
-        status: "success",
-        duration: 1500,
-        isClosable: true,
-        position: "top",
-      });
-
-      return;
+    else{
+      alert("first add size");
     }
-    // if (size == "") {
-    //   // toast({
-    //   //   title: "Account created.",
-    //   //   description: "Please select the size",
-    //   //   status: "success",
-    //   //   duration: 1500,
-    //   //   isClosable: true,
-    //   //   position: "top",
-    //   // });
-    //   // return;
+   
+  }
 
-    //   return;
-    // } else {
-
-    // }
-  };
-  // console.log("size1213", size);
 
   const handleSize = (e) => {
-    // console.log("handleSIze");
     let newSize = e.target.innerText;
     setSize(newSize);
   };
@@ -117,17 +57,7 @@ function SingleProductPage({ productKey }) {
   useEffect(() => {
     dispatch(singleProduct(newProductkey, id));
     localStorage.setItem("cardAdded", JSON.stringify(product));
-
-    setSize(product.size);
-    // return () => {
-    //   return dispatch(singleProduct(newProductkey, id));
-    // };
   }, [id]);
-  // console.log("size", size);
-  // console.log("product: ", product);
-
-  // console.log("state: ", state);
-  // console.log("product rmcfomrcosize", product.size ?"working" :"notworking");
 
   return (
     <div>

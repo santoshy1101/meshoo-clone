@@ -58,7 +58,7 @@ const Filter = ({filtByRating,sortingHandler}) => {
       console.log("retring",e.target.checked)
           filtByRating(false)
       let arr = ratArr.indexOf(e.target.value)
-      arr
+      
 
     }
   }
@@ -90,7 +90,7 @@ const Filter = ({filtByRating,sortingHandler}) => {
               // checked={category.includes(ele.ratingName)}
 
             />
-            <div className=" gap-x-1 px-2 rounded-2xl text-slate-50 text-lg font-semibold flex bg-green-400 items-center">
+            <div className="flex items-center px-2 text-lg font-semibold bg-green-400  gap-x-1 rounded-2xl text-slate-50">
                   <p>{ele.ratingName}+</p>
                   <div>
                     <AiFillStar color="white" size={15} />

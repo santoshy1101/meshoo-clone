@@ -76,10 +76,11 @@ const AllRoutes = () => {
 
       {singleProductName.map((el, ind) => {
         // console.log("dsfdsffefewfefeew", el);
+        const list = el.replaceAll(" ","").toLowerCase()
         return (
           <Route
             key={ind}
-            path={`/${el}/:id`}
+            path={`/${list}/:id`}
             element={<SingleProductPage productKey={el} />}
           />
         );

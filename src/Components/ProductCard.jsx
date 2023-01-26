@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Badge } from "@chakra-ui/react";
 import { img1 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 //import {AiFillStar} from "react-icons/ai";
 import { AiFillStar } from "react-icons/ai";
 
@@ -17,11 +17,25 @@ const ProductCard = ({
   price,
   productKey,
 }) => {
+
+  
+const {pathname} = useLocation()
+const navigate = useNavigate()
+
   // console.log("Prodcut key of ", productKey);
 
+  // <Link to={`/${productKey || "All Sarees"}/${id}` }>
+ const cardClickHandler=()=>{
+  const path = pathname.replaceAll("/" , "")
+  
+  navigate(`/${path}/${id}`,"id")
+
+    
+  }
+
+
   return (
-    <div className="group over">
-      <Link to={`/${productKey || "All Sarees"}/${id}`}>
+    <div className="group over" onClick={cardClickHandler}>
         <div className="duration-500  border group-hover:shadow-sm group-hover:shadow-slate-500 w-[100%] rounded-3xl  ">
           {/* <img src={img1} alt="img1" height="350px" width="100%" /> */}
 
@@ -33,7 +47,7 @@ const ProductCard = ({
             />
           </div>
           <div className="px-4 py-4">
-            <div className="text-md font-semibold text-slate-400">{name}</div>
+            <div className="font-semibold text-md text-slate-400">{name}</div>
 
             <div className="flex flex-col gap-y-2 ">
               <div className="flex items-end gap-x-2">
@@ -45,8 +59,8 @@ const ProductCard = ({
               <div className=" w-[110px] px-3 my-2 bg-slate-300 text-sm py-1 rounded-lg font-semibold">
                 {delivery}
               </div>
-              <div className=" flex items-center gap-x-2">
-                <div className=" gap-x-1 px-2 rounded-2xl text-slate-50 text-lg font-semibold flex bg-green-400 items-center">
+              <div className="flex items-center gap-x-2">
+                <div className="flex items-center px-2 text-lg font-semibold bg-green-400 gap-x-1 rounded-2xl text-slate-50">
                   <p>{rating}</p>
                   <div>
                     <AiFillStar color="white" size={15} />
@@ -59,7 +73,7 @@ const ProductCard = ({
             </div>
           </div>
         </div>
-      </Link>
+     
     </div>
   );
 };

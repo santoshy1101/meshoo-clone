@@ -57,6 +57,8 @@ const price = [
 const Home = () => {
   const [sortingHover, setsortingHover] = React.useState(false);
   const [name, setName] = useState("");
+  const [data,setData] = useState([])
+  const [filt,setFilt] = useState([])
 
   useEffect(() => {
     let isAuth = JSON.parse(localStorage.getItem("dataSignup"));
@@ -67,24 +69,24 @@ const Home = () => {
   }, []);
   // console.log("name :", name);
 
-  // useEffect(()=>{
-  //   axios
-  //   .get(
-  //     `https://meshoo-mock-server-app.onrender.com/allsaree`,
-  //   )
-  //   .then((res) => {
+  useEffect(()=>{
+    axios
+    .get(
+      `https://meshoo-mock-server-app.onrender.com/allsaree`,
+    )
+    .then((res) => {
 
-  //     console.log(res.data);
-  //     // setLoading(false)
-  //     // setData(res.data)
-  //   })
-  //   .catch((err) => {
-  //     console.log(err)
-  //     // setLoading(false)
-  //   })
+      console.log(res.data);
+      // setLoading(false)
+      setData(res.data)
+    })
+    .catch((err) => {
+      console.log(err)
+      // setLoading(false)
+    })
 
   
-  // },[])
+  },[])
 
   const filtByRating=(item)=>{
    
@@ -106,7 +108,7 @@ const Home = () => {
   return (
     <div>
       {/* <p>Name :{name}</p> */}
-      <div className=" lg:block hidden">
+      <div className="hidden lg:block">
       <div className="flex justify-center mt-7">
         <img className="w-[66%]" src={pic1} alt="" />
       </div>

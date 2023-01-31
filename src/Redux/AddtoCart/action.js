@@ -32,3 +32,7 @@ export const getTotalActionCart = () => {
 export const addtoCartAction = (payload) => {
   return { type: ADD_TO_CART, payload };
 };
+
+export const addToCart=(item)=>(dispatch)=>{
+          dispatch(addtoCartAction(item))
+}

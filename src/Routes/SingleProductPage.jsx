@@ -6,41 +6,60 @@ import React, { useState, useEffect, memo } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom/dist";
-import ProductsList from "../Pages/ProductsList";
+import productssList from "../Pages/ProductsList"
 import { addSingleCart } from "../Redux/AddSingleData/action";
-import { addtoCartAction } from "../Redux/AddtoCart/action";
-import { getproducts, singleProduct } from "../Redux/Product/action";
-import "./SingleProductPage.css";
+import { addToCart, addtoCartAction } from "../Redux/AddtoCart/action";
+import { getproductss, singleproducts } from "../Redux/Product/action";
+import "./SingleProductPage.css"
 // import FontAwesomeIcon from "@fortawesome/fontawesome-svg-core";
 
-function SingleProductPage({ productKey }) {
 
-  let newProductkey = productKey.replaceAll(" ", "").toLowerCase();
-  // console.log("newProductkey: ", newProductkey);
-  const { id } = useParams();
 
-  // const [product, setProduct] = useState({});
-  const product = useSelector((store) => store.productReducer.product);
 
-  const item = useSelector((store) => store.addtoCartReducer.item);
-  // console.log("item: ", item);
+function SingleproductsPage({ productsKey }) {
+  const products = useSelector((store)=>store.productsReducer.products)
+  const item = useSelector((store)=>store.addtoCartReducer.item);
+
+
+  
   const [addedCart, setAddedCart] = useState(false);
-  const [productCount, setProductCount] = useState(0);
+  // const [productsCount, setproductsCount] = useState(0);
   const [size, setSize] = useState("");
+  const [singleProduct, setSingleProduct] = useState([]);
+  
+  
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const toast = useToast();
 
   // let arr = [];
-  const loaction = useParams()
+  const {id} = useParams()
+  const {pathname} = useLocation()
 
+
+  
+
+  useEffect(() => {
+    const path = pathname.replaceAll(id, "").replaceAll("/","");
+    setSingleProduct(products[path].find((ele)=>ele.id===id))
+   
+  }, []);
+  // console.log("item", item)
   const handleAddCart =()=>{
     if(size){
-      console.log("size",size)
-      console.log(loaction);
-      alert("cliked added")
-      setSize("")
+      const itemObject = {...singleProduct,size}
+      const newData=item.map(ele=>ele.id === itemObject.id)
+      if(!newData.includes(true)){
+        dispatch(addToCart(itemObject))
+        alert("Product Succesfully added in cart")
+        setSize("")
+       }else{
+        alert("Products already added in cart")
+       }
+        
+       
+  
     }
     else{
       alert("first add size");
@@ -51,13 +70,11 @@ function SingleProductPage({ productKey }) {
 
   const handleSize = (e) => {
     let newSize = e.target.innerText;
+    // console.log(newSize);
     setSize(newSize);
   };
 
-  useEffect(() => {
-    dispatch(singleProduct(newProductkey, id));
-    localStorage.setItem("cardAdded", JSON.stringify(product));
-  }, [id]);
+
 
   return (
     <div>
@@ -67,7 +84,7 @@ function SingleProductPage({ productKey }) {
           <div className="leftdiv">
             <img
               className="w-20 mx-1 border-2 border-solid rounded border-sky-500 leftside"
-              src={product.img1}
+              src={singleProduct.img1}
               alt=""
             />
           </div>
@@ -78,7 +95,7 @@ function SingleProductPage({ productKey }) {
               <img
                 width={"85%"}
                 className="mt-1 mb-1 ml-auto mr-auto"
-                src={product.img1}
+                src={singleProduct.img1}
                 alt=""
               />
             </div>
@@ -104,33 +121,33 @@ function SingleProductPage({ productKey }) {
 
         <div>
           <div className="mx-3 py-3 px-5 border-solid border border-sky-rgb(240 240 240)  rounded rightside1">
-            <h2 className="heading">{product.name}</h2>
-            <h2 className="mt-2 text-lg font-bold font">{product.price}</h2>
-            {/* <p className="rating">{product.rating}</p> */}
+            <h2 className="heading">{singleProduct.name}</h2>
+            <h2 className="mt-2 text-lg font-bold font">{singleProduct.price}</h2>
+            {/* <p className="rating">{products.rating}</p> */}
             <div className="flex items-center my-[5px]">
               <div className=" gap-x-1 px-2 rounded-2xl text-slate-50 text-lg font-semibold flex bg-green-400 items-center  mr-[14px]">
-                <p>{product.rating}</p>
+                <p>{singleProduct.rating}</p>
                 <div>
                   <AiFillStar color="white" size={15} />
                 </div>
               </div>
               <p className="text-sm font-semibold text-slate-400">
-                {product.reviews}
+                {singleProduct.reviews}
               </p>
             </div>
-            <p className="delivery">{product.delivery}</p>
+            <p className="delivery">{singleProduct.delivery}</p>
           </div>
 
           <div className="mx-3 py-3 px-5 border-solid border border-sky-rgb(240 240 240)  rounded my-3 sizediv ">
             <h2 className="my-3 font-bold">Select Size</h2>
             <div className="flex gap-x-5">
-              {product.size &&
-                product.size.map((el, index) => {
+              {singleProduct.size &&
+                singleProduct.size.map((el, index) => {
                   return (
                     <button
                       onClick={(e) => handleSize(e)}
-                      className="border px-4 text-lg font-semibold rounded-2xl hover:text-[#F43397] 
-      hover:border-[#F43397] duration-200 text-slate-800"
+                      className={`border px-4 text-lg font-semibold  hover:text-[#F43397] 
+      hover:border-[#F43397]  hover:scale-110 duration-700  ${size.length>0 && "text-[#F43397] rounded-2xl border-[#F43397]"}`}
                       key={index}
                     >
                       {el}
@@ -141,18 +158,18 @@ function SingleProductPage({ productKey }) {
           </div>
 
           <div className="mx-3 py-3 px-5 border-solid border border-sky-rgb(240 240 240)  rounded my-3 sizediv">
-            <h2 className="my-5">Product Details</h2>
-            <p>Name : {product.name}</p>
-            {/* <p className="w-[30%]">Desc : {product.desc}</p> */}
-            <p> Net Quantity (N): {product.quantity} </p>
-            <p>Sizes : {product.size}</p>
+            <h2 className="my-5">products Details</h2>
+            <p>Name : {singleProduct.name}</p>
+            {/* <p className="w-[30%]">Desc : {products.desc}</p> */}
+            <p> Net Quantity (N): {singleProduct.quantity} </p>
+            <p>Sizes : {singleProduct.size}</p>
             <p> Country of Origin : India</p>
           </div>
         </div>
       </div>
-      {/* <ProductsList path={"BedSheets"} /> */}
+      {/* <productssList path={"BedSheets"} /> */}
     </div>
   );
 }
 
-export default memo(SingleProductPage);
+export default memo(SingleproductsPage);

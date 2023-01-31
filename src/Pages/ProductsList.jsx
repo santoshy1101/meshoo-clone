@@ -7,9 +7,10 @@ import ProductCard from "../Components/ProductCard";
 import Loading from "../Components/Loader/Loading";
 import Pagination from "../Components/Pagination/Pagination";
 import Filter from "../Components/Filter";
+import { useDispatch, useSelector } from "react-redux";
 
 const ProductsList = (prop) => {
-  let { path, p, productKey } = prop;
+  // let { path, p, productKey } = prop;
   // console.log("productKey: fefwfwe", productKey);
   const [filt,setFilt]=useState([])
 
@@ -18,70 +19,85 @@ const ProductsList = (prop) => {
   const [searchParams, setSearchParams] = useSearchParams();
   let initState = searchParams.get("page");
   const [page, setPage] = useState(parseInt(initState) || 1);
-  const loc = useLocation();
+  const {pathname} = useLocation();
+  const path = pathname.replaceAll("/","")
+  // const dispatch=useDispatch()
+  const products = useSelector((store)=>store.productsReducer.products)
+  
   // console.log(loc);
 
   // console.log("path",path)
-  if(!path){
-    path="allsarees"
-  }
+  // if(!path){
+  //   path="allsarees"
+  // }
 
-  const getProducts = async (arg = 1) => {
+  // const getProducts = async (arg = 1) => {
     
-    // let newaPath =pathname.split("").filter((el)=> el!=="/" && el!== "%" && el!=="2" && el!=="0").join("").toLocaleLowerCase()
-    let newPath = path.replaceAll(" ", "").toLowerCase();
-    setLoading(true);
-    axios
-      .get(
-        `https://meshoo-mock-server-app.onrender.com/${newPath }?_page=${page}&_limit=16`
-      )
-      .then((res) => {
-        setLoading(false);
-        setData(res.data);
-        setFilt(res.data)
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-      });
-  };
+  //   // let newaPath =pathname.split("").filter((el)=> el!=="/" && el!== "%" && el!=="2" && el!=="0").join("").toLocaleLowerCase()
+  //   let newPath = path.replaceAll(" ", "").toLowerCase();
+  //   setLoading(true);
+  //   axios
+  //     .get(
+  //       `https://meshoo-mock-server-app.onrender.com/${newPath }?_page=${page}&_limit=16`
+  //     )
+  //     .then((res) => {
+  //       setLoading(false);
+  //       setData(res.data);
+  //       setFilt(res.data)
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       setLoading(false);
+  //     });
+  // };
 
-  useEffect(() => {
-    getProducts(page);
-    const params = {
-      page,
-      limit: 16,
-    };
-    setSearchParams(params);
-    window.scrollTo(0, 0);
+  // useEffect(() => {
+  //   getProducts(page);
+  //   const params = {
+  //     page,
+  //     limit: 16,
+  //   };
+  //   setSearchParams(params);
+  //   window.scrollTo(0, 0);
 
-  }, [page, path]);
+  // }, [page, path]);
 
-  if (loading) {
-    return <Loading />;
-  }
+  // if (loading) {
+  //   return <Loading />;
+  // }
+  // useEffect(()=>{
+    
+  // })
+
+useEffect(()=>{
+
+  setFilt(products[path || "allsarees"])
+  
+},[])
 
   const filtByRating=(item)=>{
-   
-    item= +item
-    // console.log("item",typeof(item))
-    // setFilt(item)
     if(item){
-      let newData = data.filter((el)=>{
-       return el.rating>=item
-      }) ;
-      // console.log(newData);
-    setFilt(newData)
+      item= +item
+      if(item){
+        let newData = products[path].filter((el)=>{
+         return el.rating>=item
+        }) ;
+      setFilt(newData)
+      }
+      else{
+        setFilt(data)
+      }
+    }else{
+      setFilt(products[path || "allsarees"])
     }
-    else{
-      setFilt(data)
     }
-  }
+   
+   
   // console.log("filt",data)
 
   const sortingHandler =(item)=>{
 
-   let newData = data.map((ele)=>{
+   let newData = products[path].map((ele)=>{
      return ({...ele,price:parseInt(ele.price.split("").splice(1).join(""))})
     })
 
@@ -108,14 +124,14 @@ const ProductsList = (prop) => {
 
   return (
     <div className="px-8 py-10">
-      <div className="flex flex-row gap-x-20  justify-around  ">
-        <div className=" shadow-xl hidden sm:block">
+      <div className="flex flex-row justify-around gap-x-20 ">
+        <div className="hidden shadow-xl sm:block">
           <Filter filtByRating={filtByRating} sortingHandler={sortingHandler} />
         </div>
         <div className="grid max-[320px]:grid-cols-2 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-8 gap-y-10 ">
          {filt.length > 0 &&filt.map((ele) => {
               return (
-                <ProductCard productKey={productKey} key={ele.id} {...ele} />
+                <ProductCard key={ele.id} {...ele} />
               );
             })} 
         </div>

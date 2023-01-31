@@ -12,7 +12,7 @@ import pic2 from "../../assets/supplier.png";
 import pic3 from "../../assets/buisnesswithZero.png";
 import Footer from "../../Components/Footer/Footer";
 import "./Home.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useEffect } from "react";
 import Filter from "../../Components/Filter";
@@ -22,6 +22,7 @@ import axios from "axios";
 import ProductsList from "../ProductsList";
 import { Link } from "react-router-dom";
 import Accordion1 from "../../Components/Accordion1";
+import { getProducts } from "../../Redux/Product/action";
 
 
 const categoery = [
@@ -59,33 +60,40 @@ const Home = () => {
   const [name, setName] = useState("");
   const [data,setData] = useState([])
   const [filt,setFilt] = useState([])
+const products = useSelector((store)=>store.productsReducer.products)
 
-  useEffect(() => {
-    let isAuth = JSON.parse(localStorage.getItem("dataSignup"));
-    // console.log("profileName: ", profileName[0].name);
-    if (isAuth) {
-      setName(isAuth[0].name);
-    }
-  }, []);
+  // useEffect(() => {
+  //   let isAuth = JSON.parse(localStorage.getItem("dataSignup"));
+  //   // console.log("profileName: ", profileName[0].name);
+  //   if (isAuth) {
+  //     setName(isAuth[0].name);
+  //   }
+  // }, []);
   // console.log("name :", name);
 
-  useEffect(()=>{
-    axios
-    .get(
-      `https://meshoo-mock-server-app.onrender.com/allsaree`,
-    )
-    .then((res) => {
+  // useEffect(()=>{
+  //   axios
+  //   .get(
+  //     `https://meshoo-mock-server-app.onrender.com/allsaree`,
+  //   )
+  //   .then((res) => {
 
-      console.log(res.data);
-      // setLoading(false)
-      setData(res.data)
-    })
-    .catch((err) => {
-      console.log(err)
-      // setLoading(false)
-    })
+  //     console.log(res.data);
+  //     // setLoading(false)
+  //     setData(res.data)
+  //   })
+  //   .catch((err) => {
+  //     console.log(err)
+  //     // setLoading(false)
+  //   })
 
   
+  // },[])
+
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(getProducts("products"))
   },[])
 
   const filtByRating=(item)=>{
@@ -106,7 +114,7 @@ const Home = () => {
   }
 
   return (
-    <div>
+    <div className="border-4">
       {/* <p>Name :{name}</p> */}
       <div className="hidden lg:block">
       <div className="flex justify-center mt-7">

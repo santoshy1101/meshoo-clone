@@ -55,11 +55,11 @@ const Navbar = () => {
   // console.log("profileName: ", profileName);
   // console.log("profileName: ", profileName);
 
-  useEffect(() => {
-    fetch("https://meshoo-mock-server-app.onrender.com/allsarees")
-      .then((response) => response.json())
-      .then((data) => setSarees(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch("https://meshoo-mock-server-app.onrender.com/allsarees")
+  //     .then((response) => response.json())
+  //     .then((data) => setSarees(data));
+  // }, []);
 
   useEffect(() => {
     if (debouncedSearchTerm === "") {
@@ -115,7 +115,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="sticky top-0 bg-[#ffffff]">
+      <div className="sticky z-10 top-0 bg-[#ffffff]">
         <div
           onMouseEnter={() => setNavCatSelect("")}
           className="border-b-[1.2px] relative  flex-col-reverse lg:flex-row  border-gray-400 flex px-8 items-center justify-between"

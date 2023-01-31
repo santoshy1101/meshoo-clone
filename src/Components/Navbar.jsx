@@ -40,32 +40,20 @@ const Navbar = () => {
   const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
   const [sarees, setSarees] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
-  // const [showDataSearch,setShowDataSearch]=useState(true)
-
-  //UserName Logic
+  const products = useSelector((store) => store.productsReducer.products)
   const isAuth = useSelector((store) => store.authReducer.isAuth);
-  // console.log("isAuth: ", isAuth)
   let profileNameGet = JSON.parse(localStorage.getItem("dataSignup"));
-  // console.log("profileNameGet: ", profileNameGet);
-  // if(!profileName)
+
   let profileName;
   if (profileNameGet !== null) {
     profileName = profileNameGet[0].name;
   }
-  // console.log("profileName: ", profileName);
-  // console.log("profileName: ", profileName);
 
-  // useEffect(() => {
-  //   fetch("https://meshoo-mock-server-app.onrender.com/allsarees")
-  //     .then((response) => response.json())
-  //     .then((data) => setSarees(data));
-  // }, []);
 
   useEffect(() => {
     if (debouncedSearchTerm === "") {
       setSearchResults([]);
     } else {
-      // setShowDataSearch(true);
       const results = sarees.filter((saree) =>
         saree.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
       );
@@ -93,9 +81,14 @@ const Navbar = () => {
 
   const subCategoryClickHandler = (path) => {
     let newPath = path.replaceAll(" ", "").toLocaleLowerCase();
-
-    setNavCatSelect("");
-    navigate(`/${newPath}`);
+    if(products[newPath]){
+      setNavCatSelect("");
+      navigate(`/${newPath}`);
+    }
+    else{
+      setNavCatSelect("");
+      navigate(`/allsarees`);
+    }
   };
 
   useEffect(() => {
@@ -162,7 +155,7 @@ const Navbar = () => {
               </Link>
             </div>
             <div className="hidden lg:block">
-              <div className="flex flex-row items-center justify-between ">
+              <div  className="flex flex-row items-center justify-between ">
                 <div>
                   <TfiMobile size={20} />
                 </div>
@@ -172,9 +165,11 @@ const Navbar = () => {
             <div className="h-[45px] border border-gray-400 hidden lg:block"></div>
             <div className="hidden lg:block">Become a Supplier</div>
             <div className="h-[45px] border border-gray-400  hidden lg:block"></div>
-            <div className="flex ">
+            <div 
+            
+            className="flex "  >
               <div
-                onMouseLeave={() => setProfile("")}
+                
                 onMouseEnter={(e) => profileHandler(e.target.textContent)}
                 className={`flex flex-col  items-center justify-center p-2 cursor-pointer ${
                   profile === "profile" ? "text-[#F43397]" : "text-black"
@@ -190,7 +185,7 @@ const Navbar = () => {
                 <div>Profile</div>
               </div>
               <Link to="/Add to cart">
-                <div className="flex flex-col items-center justify-center p-2 hover:text-[#F43397]">
+                <div onMouseEnter={(e) => profileHandler("")} className="flex flex-col items-center justify-center p-2 hover:text-[#F43397]">
                   <div
                     className={` ${
                       totalItem > 0 ? "block" : "hidden"
@@ -268,10 +263,10 @@ const Navbar = () => {
 
         <div
           onMouseLeave={() => setProfile("")}
-          onMouseEnter={(e) => profileHandler(e.target.textContent)}
+       
           className={`${profile === "profile" ? "block" : "hidden"} `}
         >
-          <div className="  border absolute top-[50px] bg-white right-5 rounded-md shadow-2xl gap-y-4 py-4 w-[250px] flex flex-col px-4 group">
+          <div className="  border absolute top-[70px] bg-white right-5 rounded-md shadow-2xl gap-y-4 py-4 w-[250px] flex flex-col px-4 group">
             <div>
               <p className="text-xl font-semibold">
                 {isAuth ? profileName : "Hello, User Or Admin"}

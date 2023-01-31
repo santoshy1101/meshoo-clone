@@ -1,79 +1,110 @@
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { useToast } from "@chakra-ui/react";
-import axios from "axios";
-// import { initial } from "lodash";
 import React, { useState, useEffect, memo } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom/dist";
-import productssList from "../Pages/ProductsList"
-import { addSingleCart } from "../Redux/AddSingleData/action";
-import { addToCart, addtoCartAction } from "../Redux/AddtoCart/action";
-import { getproductss, singleproducts } from "../Redux/Product/action";
-import "./SingleProductPage.css"
-// import FontAwesomeIcon from "@fortawesome/fontawesome-svg-core";
+
+import { addToCart, } from "../Redux/AddtoCart/action";
+import "./SingleProductPage.css";
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 
 
-
-function SingleproductsPage({ productsKey }) {
+function SingleproductsPage() {
   const products = useSelector((store)=>store.productsReducer.products)
   const item = useSelector((store)=>store.addtoCartReducer.item);
-
-
-  
   const [addedCart, setAddedCart] = useState(false);
-  // const [productsCount, setproductsCount] = useState(0);
   const [size, setSize] = useState("");
   const [singleProduct, setSingleProduct] = useState([]);
-  
-  
-
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const toast = useToast();
-
-  // let arr = [];
   const {id} = useParams()
-  const {pathname} = useLocation()
-
-
-  
+  const {pathname} = useLocation();
+  const navigate= useNavigate()
 
   useEffect(() => {
     const path = pathname.replaceAll(id, "").replaceAll("/","");
     setSingleProduct(products[path].find((ele)=>ele.id===id))
    
   }, []);
-  // console.log("item", item)
+
   const handleAddCart =()=>{
-    if(size){
+    if(size.length>0){
       const itemObject = {...singleProduct,size}
       const newData=item.map(ele=>ele.id === itemObject.id)
       if(!newData.includes(true)){
         dispatch(addToCart(itemObject))
-        alert("Product Succesfully added in cart")
+        toast({
+          title: `Product Succesfully added in cart`,
+          status: 'success',
+          position:'top',
+          duration:1400,  
+        })
+        console.log(item,"item");
+console.log(products,"products");
         setSize("")
-       }else{
-        alert("Products already added in cart")
+       }else{toast({
+        title: `This Product already have in cart`,
+        status: 'warning',
+        position:'top',
+        duration:1400,
+      })
        }
-        
-       
-  
     }
     else{
-      alert("first add size");
+      toast({
+        title: `Please Add Size`,
+        status: 'success',
+        position:'top',
+        duration:1000,
+        
+      })
     }
-   
   }
-
 
   const handleSize = (e) => {
     let newSize = e.target.innerText;
-    // console.log(newSize);
     setSize(newSize);
   };
 
+  const buynowHandler=()=>{
+    if(size.length>0){
+      const itemObject = {...singleProduct,size}
+      const newData=item.map(ele=>ele.id === itemObject.id)
+      if(!newData.includes(true)){
+        dispatch(addToCart(itemObject))
+        toast({
+          title: `Product Succesfully added in cart`,
+          status: 'success',
+          position:'top',
+          duration:1400,
+        })
+        setSize("")
+        navigate("/Add to cart")
+        
+       }else{toast({
+        title: `This Product already have in cart`,
+        status: 'warning',
+        position:'top',
+        duration:1400,
+      })
+      navigate("/Add to cart")
+       }
+    }
+    else{
+      toast({
+        title: `Please Add Size`,
+        status: 'success',
+        position:'top',
+        duration:1000,
+        
+      })
+// alert("plz side add")
+    }
+    
+  }
 
 
   return (
@@ -101,20 +132,12 @@ function SingleproductsPage({ productsKey }) {
             </div>
 
             <div className="flex justify-evenly name">
-              {/* <Link to={"Add to cart"}> */}
               <button className="addbtn" onClick={handleAddCart}>
                 {addedCart ? "Card Added" : "Add to Cart"}
               </button>
-              {/* </Link> */}
-              <Link to="/checkout/address">
-                <button className="addbtn2">
-                  {" "}
-                  <span>
-                    {/* <FontAwesomeIcon icon="fa-solid fa-angles-right" /> */}
-                  </span>{" "}
+              <button className="addbtn2" onClick={buynowHandler}> 
                   Buy Now
                 </button>
-              </Link>
             </div>
           </div>
         </div>
@@ -167,7 +190,7 @@ function SingleproductsPage({ productsKey }) {
           </div>
         </div>
       </div>
-      {/* <productssList path={"BedSheets"} /> */}
+
     </div>
   );
 }

@@ -21,36 +21,12 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import "./AddAddress/address.css";
-function CompExample() {
-  const {
-    isOpen: isVisible,
-    onClose,
-    onOpen,
-  } = useDisclosure({ defaultIsOpen: false });
-
-  return isVisible ? (
-    <Alert status="success">
-      <AlertIcon />
-      <Box>
-        <AlertTitle>Success!</AlertTitle>
-        <AlertDescription>Your Product orderes Successfully</AlertDescription>
-      </Box>
-      <CloseButton
-        alignSelf="flex-start"
-        position="relative"
-        right={-1}
-        top={-1}
-        onClick={onClose}
-      />
-    </Alert>
-  ) : (
-    <Button variant="solid" colorScheme="pink" onClick={onOpen}>
-      Pay
-    </Button>
-  );
-}
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Payment = () => {
+  const navigate = useNavigate()
   const address = useSelector((store) => store.orderAddressReducer.userDetails);
   console.log("address: ", address);
   const { name, city, phone, houseNo, roadName, pincode, state } = address;
@@ -62,6 +38,26 @@ const Payment = () => {
   var toatalPrice = useSelector((state) => {
     return state.addtoCartReducer.totalAmount;
   });
+
+  const payment=()=>{
+
+    toast.success(' Order Placed Successfull !', {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      });
+    setTimeout(()=>{
+      navigate("/")
+    },5000)
+    
+  }
+
+
   return (
     <div className="maindiv2">
       <div>
@@ -129,13 +125,24 @@ const Payment = () => {
                 Order Total :{toatalPrice}
               </Text>
             </Stack>
-            {/* <Button onClick={()=>{alert("Ordee Placed Successfull")}} variant='solid' colorScheme='pink'>
+            <Button onClick={payment} variant='solid' colorScheme='pink'>
        Pay
-      </Button> */}
-            {CompExample()}
+      </Button> 
+          
           </CardBody>
         </Card>
       </div>
+      <ToastContainer 
+      position="top-center"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="colored" />
     </div>
   );
 };

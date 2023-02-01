@@ -79,11 +79,11 @@ const ProductsList = (prop) => {
             })}
         </div>
       </div>
-      <Pagination
+    {/*   <Pagination
         pageNumber={page}
         setPageNumber={setPage}
         dataLength={data.length > 0 && data.length}
-      />
+      /> */}
     </div>
   )
 }

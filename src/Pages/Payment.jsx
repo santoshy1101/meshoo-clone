@@ -32,6 +32,7 @@ const Payment = () => {
   console.log("address: ", address);
   const { name, city, phone, houseNo, roadName, pincode, state } = address;
   const dispatch = useDispatch()
+  
 
   const product = useSelector((state) => {
     return state.addtoCartReducer.item;
@@ -40,6 +41,8 @@ const Payment = () => {
   var toatalPrice = useSelector((state) => {
     return state.addtoCartReducer.totalAmount;
   });
+
+
 
   const payment=()=>{
 
@@ -54,6 +57,7 @@ const Payment = () => {
       theme: "colored",
       });
     setTimeout(()=>{
+      dispatch(clearItem())
       navigate("/")
      
     },5000)

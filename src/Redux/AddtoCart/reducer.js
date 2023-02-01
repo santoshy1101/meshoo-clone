@@ -17,13 +17,13 @@ export const reducer = (state=initialState, {type, payload}) => {
  switch(type){
 
   case ADD_TO_CART:{
-    return { ...state, item: [...state.item, payload] };
+    return { ...state, item: [...state.item, payload]};
   }
 
   case INCREMENT_ITEM_CART:{
     const updatedCart = state.item.map((curElem) => {
           if (curElem.id === payload) {
-            return { ...curElem, quantity: curElem.quantity + 1 };
+            return { ...curElem, quantity: curElem.quantity + 1  };
           }
           else{
             return curElem
@@ -32,8 +32,48 @@ export const reducer = (state=initialState, {type, payload}) => {
       
         return { ...state, item: updatedCart };
   }
+   
+  case DECREMENT_ITEM_CART :{
+       const updatedCart = state.item
+    .map((curElem) => {
+      if (curElem.id === payload) {
+        return { ...curElem, quantity: curElem.quantity - 1};
+      }
+     else{ return curElem};
+    })
+    .filter((curElem) => curElem.quantity !== 0);
+  return { ...state, item: updatedCart };
+  }
+
+  case REMOVE_ITEM_CART:{
+  return {
+    ...state,
+    item: state.item.filter((curElem) => {
+      return curElem.id !== payload;
+    }),
+  };
+
+  }
+
+  case CLEAR_ITEM_CART:{
+    return { ...state, item: [] };
+  }
+
   default :{
-    return state;
+
+    const tPrice = state.item.map((ele,ind)=>{
+      const rate = + ele.price.replace("₹", "")
+      console.log(ele.quantity,rate)
+      return rate * ele.quantity;
+    })
+    const initialValue = 0;
+    const sumTprice = tPrice.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      initialValue
+    );
+
+    console.log("tPrice" , tPrice , "sumTPrice", sumTprice )
+    return {...state , totalItem:state.item.length , totalAmount:sumTprice}
   }
  }
   

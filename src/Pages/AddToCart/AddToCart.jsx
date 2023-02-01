@@ -4,6 +4,7 @@ import "./AddToCart.css";
 import {
   decrementActionCart,
   getTotalActionCart,
+  incQuant,
   increamentActionCart,
   removeActionCart,
 } from "../../Redux/AddtoCart/action";
@@ -21,11 +22,12 @@ export default function AddToCart() {
       totalItem: store.addtoCartReducer.totalItem,
     };
   });
+  console.log(item);
 
   const isAuth = useSelector((store) => store.authReducer.isAuth);
-  console.log("isAuth: ", isAuth);
+  // console.log("isAuth: ", isAuth);
   // console.log("item:23242 ", item);
-  console.log("totalAmount: ", totalAmount);
+  // console.log("totalAmount: ", totalAmount);
 
   const dispatch = useDispatch();
   const [overightData, setOverightData] = useState([]);
@@ -53,8 +55,8 @@ export default function AddToCart() {
     //   return curElem;
     // });
 
-    dispatch(getTotalActionCart());
-  }, [item]);
+    // dispatch(getTotalActionCart());
+  }, []);
 
   return (
     <>
@@ -119,7 +121,7 @@ export default function AddToCart() {
                               disabled
                             />
                             <div
-                              onClick={() => dispatch(increamentActionCart(id))}
+                              onClick={() => dispatch(incQuant(id))}
                             >
                               <BsPlusSquareFill size={20} />
                             </div>

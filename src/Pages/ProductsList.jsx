@@ -24,7 +24,7 @@ const ProductsList = (prop) => {
 
   const products = useSelector((store) => store.productsReducer.products)
 
-  console.log(products, 'path')
+  // console.log(products, 'path')
   useEffect(() => {
     
     if (products[path]) {

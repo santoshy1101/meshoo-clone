@@ -23,7 +23,7 @@ function SingleproductsPage() {
   const {id} = useParams()
   const {pathname} = useLocation();
   const navigate= useNavigate()
-
+console.log(item);
   useEffect(() => {
     const path = pathname.replaceAll(id, "").replaceAll("/","");
     setSingleProduct(products[path].find((ele)=>ele.id===id))
@@ -42,8 +42,8 @@ function SingleproductsPage() {
           position:'top',
           duration:1400,  
         })
-        console.log(item,"item");
-console.log(products,"products");
+//         console.log(item,"item");
+// console.log(products,"products");
         setSize("")
        }else{toast({
         title: `This Product already have in cart`,

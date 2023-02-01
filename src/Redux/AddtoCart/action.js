@@ -36,3 +36,11 @@ export const addtoCartAction = (payload) => {
 export const addToCart=(item)=>(dispatch)=>{
           dispatch(addtoCartAction(item))
 }
+export const incQuant=(id)=>(dispatch)=>{
+  console.log(id);
+          dispatch(increamentActionCart(id))
+}
+  export const clearItem=()=>(dispatch)=>{
+// console.log(id);
+          dispatch(clearActionCart())
+}

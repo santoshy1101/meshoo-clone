@@ -1,19 +1,19 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Home from "../Pages/Home/Home";
-import SingleProductPage from "../Routes/SingleProductPage";
+import Home from "../../Pages/Home/Home";
+import SingleProductPage from "../../Routes/SingleProductPage";
 
-import { singleProductName } from "../All Data/singleProductName";
-import Address from "../Pages/AddAddress/Address";
+import { singleProductName } from "../../All Data/singleProductName";
+import Address from "../../Pages/AddAddress/Address";
 // import AddToCart from "../Pages/AddToCart";
-import NewAccount from "../Pages/SignUp";
-import ProductsList from "../Pages/ProductsList";
+import NewAccount from "../../Pages/SignUp";
+import ProductsList from "../../Pages/ProductsList";
 
-import Payment from "../Pages/Payment";
-import { Login } from "../Pages/Login";
-import AddToCart from "../Pages/AddToCart/AddToCart";
-import SearchComponent from "./SearchComponent";
-import PrivateRoute from "./PrivateRoute";
+import Payment from "../../Pages/Payment";
+import { Login } from "../../Pages/Login";
+import AddToCart from "../../Pages/AddToCart/AddToCart";
+import SearchComponent from "../SearchComponent";
+import PrivateRoute from "../PrivateRoute";
 
 const AllRoutes = () => {
   return (

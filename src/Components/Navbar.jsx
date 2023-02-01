@@ -68,6 +68,7 @@ const Navbar = () => {
     };
   });
 
+
   const dispatch = useDispatch();
 
   const searchTextClearHandler = () => {
@@ -191,7 +192,7 @@ const Navbar = () => {
                       totalItem > 0 ? "block" : "hidden"
                     } px-2 text-lg font-semibold bg-[#F43397] rounded-full  text-slate-50`}
                   >
-                    {totalItem}
+                    {totalItem} 
                   </div>
                   <div>
                     <FiShoppingCart size={20} />

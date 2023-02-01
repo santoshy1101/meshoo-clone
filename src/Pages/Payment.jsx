@@ -20,16 +20,18 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./AddAddress/address.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { clearItem } from "../Redux/AddtoCart/action";
 const Payment = () => {
   const navigate = useNavigate()
   const address = useSelector((store) => store.orderAddressReducer.userDetails);
   console.log("address: ", address);
   const { name, city, phone, houseNo, roadName, pincode, state } = address;
+  const dispatch = useDispatch()
 
   const product = useSelector((state) => {
     return state.addtoCartReducer.item;
@@ -53,7 +55,9 @@ const Payment = () => {
       });
     setTimeout(()=>{
       navigate("/")
+     
     },5000)
+
     
   }
 

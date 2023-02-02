@@ -26,22 +26,30 @@ const navigate = useNavigate()
 
   // <Link to={`/${productKey || "All Sarees"}/${id}` }>
  const cardClickHandler=()=>{
-  const path = pathname.replaceAll("/" , "")
   
+  const path = pathname.replaceAll("/" , "")
+  if (path ===""){
+    navigate(`/dresses/${id}`,"id")
+    console.log("path", path, "id", id)
+  }
+else{
   navigate(`/${path}/${id}`,"id")
+}
+  
+
 
     
   }
 
 
   return (
-    <div className="group over" onClick={cardClickHandler}>
-        <div className="duration-500  border group-hover:shadow-sm group-hover:shadow-slate-500 w-[100%] rounded-3xl  ">
+    <div className="cursor-pointer group over" onClick={cardClickHandler}>
+        <div className="duration-500  border group-hover:shadow-2xl group-hover:shadow-[#F43397] group-hover:border-[#F43397] w-[200px] rounded-3xl  ">
           {/* <img src={img1} alt="img1" height="350px" width="100%" /> */}
 
-          <div className="h-[250px] ">
+          <div className="h-[250px] group overflow-hidden   duration-700   ">
             <img
-              className="w-[100%] rounded-tl-3xl  rounded-tr-3xl h-[100%] object-cover"
+              className="w-[100%] rounded-3xl group-hover:rounded-full h-[100%] group-hover:scale-125 duration-700 object-contain"
               src={img1}
               alt={name}
             />
@@ -56,17 +64,17 @@ const navigate = useNavigate()
                   {onwards}
                 </p>
               </div>
-              <div className=" w-[110px] px-3 my-2 bg-slate-300 text-sm py-1 rounded-lg font-semibold">
+              <div className=" w-[110px] animate-bounce group-hover:animate-none px-3 my-2 bg-slate-300 text-sm py-1 rounded-lg font-semibold">
                 {delivery}
               </div>
               <div className="flex items-center gap-x-2">
-                <div className="flex items-center px-2 text-lg font-semibold bg-green-400 gap-x-1 rounded-2xl text-slate-50">
+                <div className="flex items-center px-2 text-lg font-semibold bg-green-400 gap-x-1 rounded-2xl text-slate-50 animate-pulse animate-ping group-hover:animate-none">
                   <p>{rating}</p>
                   <div>
                     <AiFillStar color="white" size={15} />
                   </div>
                 </div>
-                <div className="text-sm font-semibold text-slate-400">
+                <div className="text-sm font-semibold text-slate-400 animate-spin group-hover:animate-none">
                   {reviews}
                 </div>
               </div>

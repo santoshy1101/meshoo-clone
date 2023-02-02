@@ -63,7 +63,6 @@ export const reducer = (state=initialState, {type, payload}) => {
 
     const tPrice = state.item.map((ele,ind)=>{
       const rate = + ele.price.replace("₹", "")
-      console.log(ele.quantity,rate)
       return rate * ele.quantity;
     })
     const initialValue = 0;
@@ -71,8 +70,6 @@ export const reducer = (state=initialState, {type, payload}) => {
       (accumulator, currentValue) => accumulator + currentValue,
       initialValue
     );
-
-    console.log("tPrice" , tPrice , "sumTPrice", sumTprice )
     return {...state , totalItem:state.item.length , totalAmount:sumTprice}
   }
  }

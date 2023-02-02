@@ -23,6 +23,7 @@ import ProductsList from "../ProductsList";
 import { Link } from "react-router-dom";
 import Accordion1 from "../../Components/Accordion1";
 import { getProducts } from "../../Redux/Product/action";
+import HomePageProducts from "../../Components/HomePageProducts/HomePageProducts";
 
 
 const categoery = [
@@ -240,7 +241,7 @@ const products = useSelector((store)=>store.productsReducer.products)
 
       <div className="">
    
-                <ProductsList/>
+                <HomePageProducts/>
        </div>
 
       <Footer />

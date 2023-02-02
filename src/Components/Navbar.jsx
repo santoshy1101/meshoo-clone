@@ -186,7 +186,7 @@ const Navbar = () => {
                 <div>Profile</div>
               </div>
               <Link to="/Add to cart">
-                <div onMouseEnter={(e) => profileHandler("")} className="flex flex-col items-center justify-center p-2 hover:text-[#F43397]">
+                <div onMouseEnter={(e) => profileHandler("")} className="flex flex-row-reverse items-center justify-center p-2 hover:text-[#F43397]">
                   <div
                     className={` ${
                       totalItem > 0 ? "block" : "hidden"
@@ -195,9 +195,12 @@ const Navbar = () => {
                     {totalItem} 
                   </div>
                   <div>
-                    <FiShoppingCart size={20} />
+                  <div>
+                  <FiShoppingCart size={20} />
+                </div>
+                <div>Cart</div>
                   </div>
-                  <div>Cart</div>
+               
                 </div>
               </Link>
             </div>

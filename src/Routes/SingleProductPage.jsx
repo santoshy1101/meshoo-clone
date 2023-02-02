@@ -42,8 +42,10 @@ console.log(item);
           position:'top',
           duration:1400,  
         })
+        
 //         console.log(item,"item");
 // console.log(products,"products");
+setAddedCart(true)
         setSize("")
        }else{toast({
         title: `This Product already have in cart`,
@@ -109,7 +111,7 @@ console.log(item);
 
   return (
     <div>
-      <div className="flex flex-col mt-5 ml-20 mr-20 lg:flex-row md:flex-col">
+      <div className="flex flex-col justify-around mt-5 ml-20 mr-20 lg:flex-row md:flex-col">
         {/* left side */}
         <div className="flex">
           <div className="leftdiv">
@@ -132,7 +134,7 @@ console.log(item);
             </div>
 
             <div className="flex my-5 gap-x-8 ">
-              <button className="font-semibold border-2 text-slate-800" onClick={handleAddCart}>
+              <button className="font-semibold border-2 addbtn text-slate-800" onClick={handleAddCart}>
                 {addedCart ? "Card Added" : "Add to Cart"}
               </button>
               <button className="addbtn2" onClick={buynowHandler}> 

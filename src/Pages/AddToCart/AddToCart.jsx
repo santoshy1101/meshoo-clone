@@ -25,9 +25,7 @@ export default function AddToCart() {
   console.log(item);
 
   const isAuth = useSelector((store) => store.authReducer.isAuth);
-  // console.log("isAuth: ", isAuth);
-  // console.log("item:23242 ", item);
-  // console.log("totalAmount: ", totalAmount);
+
 
   const dispatch = useDispatch();
   const [overightData, setOverightData] = useState([]);

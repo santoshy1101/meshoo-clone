@@ -30,19 +30,15 @@ const HomePageProducts = () => {
 
   return (
     <div className="py-10 ">
-      <div className="flex flex-row justify-around ">
-        <div className="grid gap-12 lg:grid-cols-5 ">
+      <div className="flex flex-row justify-around  lg:w-[90%] w:-[100%]  m-auto ">
+        <div className="grid gap-12 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-3 max-[639px]:grid-cols-2">
           {products['dresses'].length > 0 &&
           products['dresses'].map((ele) => {
               return <ProductCard key={ele.id} {...ele} />
             })}
         </div>
       </div>
-    {/*   <Pagination
-        pageNumber={page}
-        setPageNumber={setPage}
-        dataLength={data.length > 0 && data.length}
-      /> */}
+
     </div>
   )
 }

@@ -3,7 +3,7 @@ import React from "react";
 import "./footer.css"
 function Footer() {
   return (
-    <div>
+    <div className="sm: block max-[639px]:hidden">
       <div className="footerParent ">
         <div>
           <Heading>
@@ -13,7 +13,7 @@ function Footer() {
             Trusted by more than 1 Crore Indians <br></br> Cash on Delivery | Free
             Delivery
           </Text>
-          <div className="flex  ">
+          <div className="flex ">
             <img
               src="https://static.naukimg.com/s/0/0/i/new-homepage/android-app.png"
               alt=""
@@ -34,7 +34,7 @@ function Footer() {
           <p>Meesho Tech Blog</p>
           <p>Notice and Returns</p>
         </div>
-        <div className="  leading-14">
+        <div className=" leading-14">
           <Heading>Contact Us</Heading>
           <p style={{fontSize:"12px"}}>
             Fashnear Technologies Private Limited,

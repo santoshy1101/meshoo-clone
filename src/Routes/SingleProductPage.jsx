@@ -131,8 +131,8 @@ console.log(item);
               />
             </div>
 
-            <div className="flex justify-evenly name">
-              <button className="addbtn" onClick={handleAddCart}>
+            <div className="flex my-5 gap-x-8 ">
+              <button className="font-semibold border-2 text-slate-800" onClick={handleAddCart}>
                 {addedCart ? "Card Added" : "Add to Cart"}
               </button>
               <button className="addbtn2" onClick={buynowHandler}> 
@@ -147,7 +147,7 @@ console.log(item);
             <h2 className="heading">{singleProduct.name}</h2>
             <h2 className="mt-2 text-lg font-bold font">{singleProduct.price}</h2>
             {/* <p className="rating">{products.rating}</p> */}
-            <div className="flex items-center my-[5px]">
+            <div className="flex  items-center my-[5px]">
               <div className=" gap-x-1 px-2 rounded-2xl text-slate-50 text-lg font-semibold flex bg-green-400 items-center  mr-[14px]">
                 <p>{singleProduct.rating}</p>
                 <div>
@@ -158,12 +158,12 @@ console.log(item);
                 {singleProduct.reviews}
               </p>
             </div>
-            <p className="delivery">{singleProduct.delivery}</p>
+            <p className=" w-[110px] animate-bounce group-hover:animate-none px-3 my-2 bg-slate-300 text-sm py-1 rounded-lg font-semibold">{singleProduct.delivery}</p>
           </div>
 
           <div className="mx-3 py-3 px-5 border-solid border border-sky-rgb(240 240 240)  rounded my-3 sizediv ">
             <h2 className="my-3 font-bold">Select Size</h2>
-            <div className="flex gap-x-5">
+            <div className="grid gap-x-5 gap-y-5">
               {singleProduct.size &&
                 singleProduct.size.map((el, index) => {
                   return (

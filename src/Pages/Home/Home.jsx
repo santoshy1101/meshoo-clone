@@ -241,7 +241,7 @@ const products = useSelector((store)=>store.productsReducer.products)
 
       <div className="">
    
-                <HomePageProducts/>
+             { products &&  <HomePageProducts/>}  
        </div>
 
       <Footer />

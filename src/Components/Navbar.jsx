@@ -119,7 +119,7 @@ const Navbar = () => {
             <div className="w-[60px] my-2 rounded-3xl hidden lg:block">
               {/* logo */}
               <Link to="/">
-                <img className="w-[100%]  rounded-3xl" src={logo} alt="logo" />
+                <img className="w-[100%] animate-bounce  rounded-3xl" src={logo} alt="logo" />
               </Link>
             </div>
             {/*  input box div */}
@@ -152,7 +152,7 @@ const Navbar = () => {
             <div className="w-[60px] my-2 rounded-3xl lg:hidden sm:block">
               {/* logo */}
               <Link to="/">
-                <img className="w-[100%] rounded-3xl" src={logo} alt="logo" />
+                <img className="w-[100%] animate-bounce rounded-3xl" src={logo} alt="logo" />
               </Link>
             </div>
             <div className="hidden lg:block">

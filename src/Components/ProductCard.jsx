@@ -44,34 +44,34 @@ else{
 
   return (
     <div className="cursor-pointer group over" onClick={cardClickHandler}>
-        <div className="duration-500  border group-hover:shadow-2xl group-hover:shadow-[#F43397] group-hover:border-[#F43397] w-[200px] rounded-3xl  ">
+        <div className="duration-500  border group-hover:shadow-2xl group-hover:shadow-[#F43397] group-hover:border-[#F43397] lg:w-[200px]  md:w-[160px] sm:w-[158px]  lg:text-[18px] max-[639px]:text-[10px] md:text-[15px] rounded-3xl  ">
           {/* <img src={img1} alt="img1" height="350px" width="100%" /> */}
 
-          <div className="h-[250px] group overflow-hidden   duration-700   ">
+          <div className="lg:h-[250px]  sm:h-[200px] h-[120px] group overflow-hidden   duration-700   ">
             <img
               className="w-[100%] rounded-3xl group-hover:rounded-full h-[100%] group-hover:scale-125 duration-700 object-contain"
               src={img1}
               alt={name}
             />
           </div>
-          <div className="px-4 py-4">
+          <div className="px-4 py-4 ">
             <div className="font-semibold text-md text-slate-400">{name}</div>
 
             <div className="flex flex-col gap-y-2 ">
               <div className="flex items-end gap-x-2">
                 <div className="text-2xl font-bold">{price}</div>
-                <p className="text-sm font-semibold text-slate-400">
+                <p className="hidden text-sm font-semibold text-slate-400 sm:block">
                   {onwards}
                 </p>
               </div>
-              <div className=" w-[110px] animate-bounce group-hover:animate-none px-3 my-2 bg-slate-300 text-sm py-1 rounded-lg font-semibold">
+              <div className=" w-[110px] max-[639px]:w-[95px] animate-bounce group-hover:animate-none px-3 my-2 bg-slate-300 text-sm py-1 rounded-lg font-semibold">
                 {delivery}
               </div>
               <div className="flex items-center gap-x-2">
-                <div className="flex items-center px-2 text-lg font-semibold bg-green-400 gap-x-1 rounded-2xl text-slate-50 animate-pulse animate-ping group-hover:animate-none">
+                <div className="flex items-center px-1 sm:px-2 max-[639px]:text-[8px] text-lg font-semibold bg-green-400 gap-x-1 sm:rounded-2xl rounded-sm text-slate-50 animate-pulse animate-ping group-hover:animate-none">
                   <p>{rating}</p>
                   <div>
-                    <AiFillStar color="white" size={15} />
+                    <AiFillStar color="white" className="text-lg  max-[639px]:text-[7px]"/>
                   </div>
                 </div>
                 <div className="text-sm font-semibold text-slate-400 animate-spin group-hover:animate-none">

@@ -115,7 +115,7 @@ const products = useSelector((store)=>store.productsReducer.products)
   }
 
   return (
-    <div className="border-4">
+    <div className="">
       {/* <p>Name :{name}</p> */}
       <div className="hidden lg:block">
       <div className="flex justify-center mt-7">

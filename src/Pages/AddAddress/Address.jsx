@@ -44,7 +44,7 @@ const Address = () => {
         <div className="flex flex-col px-8 py-8 m-auto bg-white border gap-y-8 rounded-3xl">
           <div className="flex flex-col">
             {<label>Name</label>}
-            <input
+            <input required
               className="address_input "
               type="text"
               placeholder="Name"
@@ -54,7 +54,7 @@ const Address = () => {
           </div>
           <div>
             <label>Phone Number</label>
-            <input
+            <input required
               className="address_input"
               type="text"
               placeholder="Phone Number"
@@ -73,7 +73,7 @@ const Address = () => {
             <div className="flex flex-col gap-y-8">
               <div>
                 <label>House no./ Building Name</label>
-                <input
+                <input required
                   className="address_input"
                   type="text"
                   placeholder="House no./ Building Name"
